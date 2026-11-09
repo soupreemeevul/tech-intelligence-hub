@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI(title="Tech Intelligence Hub")
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/dashboard")
 def dashboard():
