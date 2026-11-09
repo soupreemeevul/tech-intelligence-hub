@@ -1,7 +1,11 @@
 from fastapi import FastAPI
+from fastapi.responses import FileResponse
 
 app = FastAPI(title="Tech Intelligence Hub")
 
+@app.get("/dashboard")
+def dashboard():
+    return FileResponse("static/index.html")
 
 @app.get("/")
 def home():

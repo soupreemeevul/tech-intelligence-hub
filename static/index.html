@@ -18,5 +18,42 @@
             <p>Articles will appear here.</p>
         </div>
     </main>
+    
+<script>
+    async function loadArticles() {
+        const container = document.getElementById("articles");
+
+        try {
+            const response = await fetch("/articles");
+
+            if (!response.ok) {
+                throw new Error("Failed to load articles");
+            }
+
+            const articles = await response.json();
+            container.replaceChildren();
+
+            articles.forEach(article => {
+                const card = document.createElement("article");
+                const title = document.createElement("h3");
+                const category = document.createElement("p");
+                const source = document.createElement("p");
+
+                title.textContent = article.title;
+                category.textContent = `Category: ${article.category}`;
+                source.textContent = `Source: ${article.source}`;
+
+                card.append(title, category, source);
+                container.appendChild(card);
+            });
+        } catch (error) {
+            container.textContent = "Unable to load articles.";
+            console.error(error);
+        }
+    }
+
+    loadArticles();
+</script>
+
 </body>
 </html>
