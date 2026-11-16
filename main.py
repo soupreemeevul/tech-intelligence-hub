@@ -1,7 +1,13 @@
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+import sqlite3
 
+def get_db_connection():
+    connection = sqlite3.connect("articles.db")
+    connection.row_factory = sqlite3.Row
+    return connection
+    
 app = FastAPI(title="Tech Intelligence Hub")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
